@@ -1,4 +1,4 @@
-<h3>Snake Game with AI</h3>
+<h1>Snake Game with AI</h1>
 
 # Description
 
