@@ -1,3 +1,6 @@
 arcade
 pandas
+numpy
+tensorflow
+matplotlib
 scikit-learn

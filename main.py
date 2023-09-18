@@ -27,10 +27,6 @@ class Game(arcade.Window):
             self.snake.eat(self.food)
             self.food=Apple(game_width,game_height)
 
-        # for part in self.snake.body:
-        #     if self.snake.center_x + self.snake.width==part['x'] or self.snake.center_y + self.snake.height==part['y']:
-        #         print("game over")
-
     def on_key_release(self, symbol: int, modifiers: int):
         if symbol==arcade.key.UP:
             self.snake.change_x=0

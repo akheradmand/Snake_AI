@@ -26,7 +26,7 @@ class Snake(arcade.Sprite):
 
     def move(self):
         self.body.append({'x':self.center_x, 'y':self.center_y})
-        # print((self.body[0]["x"]))
+
         if len(self.body) > self.score:
             self.body.pop(0)
 
@@ -45,4 +45,3 @@ class Snake(arcade.Sprite):
     def eat(self,food):
         del food
         self.score += 1
-        # print("score:",self.score)

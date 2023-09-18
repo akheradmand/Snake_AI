@@ -1,5 +1,4 @@
 import tensorflow as tf
-import numpy as np
 import pandas as pd
 import arcade
 from apple import Apple
@@ -10,7 +9,7 @@ game_height=560
 
 class Game(arcade.Window):
     def __init__(self):
-        super().__init__(width=game_width, height=game_height, title="Super Snake V1")
+        super().__init__(width=game_width, height=game_height, title="Super Snake AI")
         arcade.set_background_color(arcade.color.KHAKI)
 
         self.snake=Snake(game_width,game_height)
@@ -27,66 +26,74 @@ class Game(arcade.Window):
     def on_update(self, delta_time: float):
         self.snake.move()
 
-        data = {"w0":None,
-                "w1":None,
-                "w2":None,
-                "w3":None,
-                "a0":None,
-                "a1":None,
-                "a2":None,
-                "a3":None,
-                "b0":None,
-                "b1":None,
-                "b2":None,
-                "b3":None}
+        data = {"wu":None,
+                "wr":None,
+                "wd":None,
+                "wl":None,
+                "x_a":None,
+                "y_a":None,
+                "x_s":None,
+                "y_s":None,
+                "au":None,
+                "ar":None,
+                "ad":None,
+                "al":None}
 
-        data["w0"]=game_height-self.snake.center_y
-        data['w1']=game_width-self.snake.center_x
-        data["w2"]=self.snake.center_y
-        data["w3"]=self.snake.center_x
+        data["wu"]=game_height-self.snake.center_y
+        data["wr"]=game_width-self.snake.center_x
+        data["wd"]=self.snake.center_y
+        data["wl"]=self.snake.center_x
+
+        data["x_a"]=self.food.center_x
+        data["y_a"]=self.food.center_y
+
+        data["x_s"]=self.snake.center_x
+        data["y_s"]=self.snake.center_y
 
         if self.snake.center_x == self.food.center_x and self.snake.center_y < self.food.center_y:
-            data["a0"] = 1
-            data["a1"] = 0
-            data["a2"] = 0
-            data["a3"] = 0
+            data["au"] = 1
+            data["ar"] = 0
+            data["ad"] = 0
+            data["al"] = 0
         elif self.snake.center_x == self.food.center_x and self.snake.center_y > self.food.center_y:
-            data["a0"] = 0
-            data["a1"] = 0
-            data["a2"] = 1
-            data["a3"] = 0
+            data["au"] = 0
+            data["ar"] = 0
+            data["ad"] = 1
+            data["al"] = 0
         elif self.snake.center_x < self.food.center_x and self.snake.center_y == self.food.center_y:
-            data["a0"] = 0
-            data["a1"] = 1
-            data["a2"] = 0
-            data["a3"] = 0
+            data["au"] = 0
+            data["ar"] = 1
+            data["ad"] = 0
+            data["al"] = 0
         elif self.snake.center_x > self.food.center_x and self.snake.center_y == self.food.center_y:
-            data["a0"] = 0
-            data["a1"] = 0
-            data["a2"] = 0
-            data["a3"] = 1
+            data["au"] = 0
+            data["ar"] = 0
+            data["ad"] = 0
+            data["al"] = 1
 
-        for part in self.snake.body:
-            if self.snake.center_x == part["x"] and self.snake.center_y < part["y"]:
-                data["b0"] = 1
-                data["b1"] = 0
-                data["b2"] = 0
-                data["b3"] = 0
-            elif self.snake.center_x == part["x"] and self.snake.center_y > part["y"]:
-                data["b0"] = 0
-                data["b1"] = 0
-                data["b2"] = 1
-                data["b3"] = 0
-            elif self.snake.center_x < part["x"] and self.snake.center_y == part["y"]:
-                data["b0"] = 0
-                data["b1"] = 1
-                data["b2"] = 0
-                data["b3"] = 0
-            elif self.snake.center_x > part["x"] and self.snake.center_y == part["y"]:
-                data["b0"] = 0
-                data["b1"] = 0
-                data["b2"] = 0
-                data["b3"] = 1
+        elif self.snake.center_x > self.food.center_x and self.snake.center_y > self.food.center_y:
+            data["au"] = 0
+            data["ar"] = 0
+            data["ad"] = 1
+            data["al"] = 1
+
+        elif self.snake.center_x > self.food.center_x and self.snake.center_y < self.food.center_y:
+            data["au"] = 1
+            data["ar"] = 0
+            data["ad"] = 0
+            data["al"] = 1
+
+        elif self.snake.center_x < self.food.center_x and self.snake.center_y > self.food.center_y:
+            data["au"] = 0
+            data["ar"] = 1
+            data["ad"] = 1
+            data["al"] = 0
+
+        elif self.snake.center_x < self.food.center_x and self.snake.center_y < self.food.center_y:
+            data["au"] = 1
+            data["ar"] = 1
+            data["ad"] = 0
+            data["al"] = 0
 
         data = pd.DataFrame(data, index=[1])
         data.fillna(0, inplace=True)
@@ -116,7 +123,6 @@ class Game(arcade.Window):
     def on_key_release(self, symbol: int, modifiers: int):
         pass
 
-        
 if __name__=="__main__":
     game=Game()
     arcade.run()
