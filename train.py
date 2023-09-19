@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 
-data = pd.read_csv('dataset\dataset.csv')
+data = pd.read_csv('dataset/dataset.csv')
 data.fillna(0, inplace=True)
 
 X = np.array(data.iloc[:, :-1].values)
@@ -34,4 +34,4 @@ ax2.plot(output.history["accuracy"])
 ax2.set_title("accuracy")
 plt.show()
 
-model.save('weights\my_snake_model.h5')
+model.save('weights/my_snake_model.h5')
