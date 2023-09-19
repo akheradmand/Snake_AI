@@ -9,13 +9,18 @@ This information includes the distance of the snake from the walls, the coordina
 
 # How to install
 
-pip install -r requirements.txt
+'''pip install -r requirements.txt'''
 
 # How to run
 
-First run generate_dataset.py.
-Then run train.py to train neural network.
-Finally run main_ml.py to see the result.
+1- Generate dataset:
+'''python generate_dataset.py'''
+
+2- Train neural network:
+'''python train.py'''
+
+3- See the result
+'''python main_ml.py
 
 # Results
 
