@@ -13,13 +13,13 @@ This information includes the distance of the snake from the walls, the coordina
 
 ## How to run
 
-1- Generate dataset:
+1- Generate dataset:   
 ```python generate_dataset.py```
 
-2- Train neural network:
+2- Train neural network:   
 ```python train.py```
 
-3- See the result
+3- See the result:   
 ```python main_ml.py```
 
 ## Results
